@@ -1,5 +1,10 @@
 package com.techreturners.exercise001;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Exercise001 {
 
     // In this Kata, you will be given an array of numbers in which two numbers occur once and the rest occur only twice. 
@@ -11,7 +16,29 @@ public class Exercise001 {
     // Good luck!
 
     public int singles(int [] arr){
-        // Add your code here!
-        return 0;
+    	Integer[] objectArray = new Integer[arr.length];
+
+		for(int i = 0; i < arr.length; i++) {
+		    objectArray[i] = Integer.valueOf(arr[i]); // returns Integer value
+		}
+		
+		List<Integer> l =  Arrays.asList(objectArray);
+		
+		HashMap<Integer,Integer> hm = new HashMap<Integer, Integer>();
+		
+		for(Integer j : l) {
+			if(hm.containsKey(j)) {
+				hm.put(j, hm.get(j)+1);
+			}else {
+				hm.put(j, 1);
+			}
+		}
+		
+		int result =(int) hm.entrySet().stream().filter(s->s.getValue().equals(1))
+		.map(Map.Entry::getKey)
+		.reduce(0, (sum,element)-> sum+element);
+	
+		
+        return result;
     }
 }
